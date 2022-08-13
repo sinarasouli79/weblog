@@ -7,6 +7,26 @@
     <title>Document</title>
   </head>
   <body>
-    {% for obejct in queryset %} {{ obejct }} {% endfor %}
+    <article>
+      {% for object in queryset %}
+      <img src="{{object.thumbnail.url}}"></img>
+      <dl>
+        <dt><a href="{{ object.slug }}">{{ object.title }}</a></dt>
+        <br />
+        <dd>{{ object.description }}</dd>
+        <br />
+        <dd>{{ object.slug }}</dd>
+        <br />
+        <dd>{{ object.publish }}</dd>
+        <br />
+        <dd>{{ object.create }}</dd>
+        <br />
+        <dd>{{ object.update }}</dd>
+        <br />
+        <dd>{{ object.status }}</dd>
+        <br />
+      </dl>
+      {% endfor %}
+    </article>
   </body>
 </html>
