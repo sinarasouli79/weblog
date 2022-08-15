@@ -1,12 +1,13 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Article
+from .models import Article, Category
 
 # Create your views here.
 
 
 def article_list(request):
     queryset = Article.objects.filter(status='P')
-    context = {'queryset': queryset}
+    categories = Category.objects.all()
+    context = {'queryset': queryset, 'categories': categories}
     return render(request, 'index.html', context)
 
 
@@ -24,5 +25,3 @@ def post(request, slug):
 def contact(request):
     context = {}
     return render(request, 'contact.html', context)
-
-

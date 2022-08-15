@@ -23,6 +23,11 @@
             <a href="#!">سینا</a>
               در {{blog.jpublish}}
           </p>
+          <div>
+            {% for cat in blog.category.all %}
+              <a href="#">#{{cat.title}}</a>
+            {% endfor %}
+          </div>
         </div>
         <!-- Divider-->
         <hr class="my-4" />
