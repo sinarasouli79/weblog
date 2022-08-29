@@ -18,16 +18,17 @@
               {{ blog.description | truncatewords:30 }}
             </h3>
           </a>
-          <p class="post-meta" dir="rtl">
+          <div>
+            {% for cat in blog.category.all %}
+              <a href="#">#{{cat.title}} </a>
+            {% endfor %}
+          </div>
+
+          <p class="post-meta">
             نوشته شده توسط
             <a href="#!">سینا</a>
               در {{blog.jpublish}}
           </p>
-          <div>
-            {% for cat in blog.category.all %}
-              <a href="#">#{{cat.title}}</a>
-            {% endfor %}
-          </div>
         </div>
         <!-- Divider-->
         <hr class="my-4" />
@@ -35,7 +36,7 @@
       {% endfor %}
       <!-- Pager-->
       <div class="d-flex justify-content-end mb-4">
-        <a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a>
+        <a class="btn btn-primary text-uppercase" href="#!">Older Posts &larr; </a>
       </div>
     </div>
   </div>
