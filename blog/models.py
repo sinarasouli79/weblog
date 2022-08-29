@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from extensions.utils import jalali_converter
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -38,6 +39,7 @@ class Article(models.Model):
     status = models.CharField(
         max_length=1, choices=STATUS_CHOICES, verbose_name='وضعیت')
 
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name='مقالات', related_name='articles')
     class Meta:
         verbose_name = 'مقاله'
         verbose_name_plural = 'مقاله‌ها'
