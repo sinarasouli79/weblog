@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Article, Category
-
+from django.contrib.auth.models import User
 # Create your views here.
 
 
@@ -25,3 +25,12 @@ def post(request, slug):
 def contact(request):
     context = {}
     return render(request, 'contact.html', context)
+
+
+def author_article_list(request, username):
+    # author = User.objects.get(username=username)
+    author = get_object_or_404(User, username=username)
+    articles = author.articles.all()
+    context = {'author': author,
+               'articles': articles}
+    return render(request, 'author-article-list.html',context)
