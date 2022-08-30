@@ -1,33 +1,33 @@
 {% extends 'base.html' %} {% load static %} {% block title %}صفحه اصلی{%endblock%}
-{% block pageheading %} صفحه اصلی {% endblock %}
-{% block subheading %} این صفحه اصلی است {% endblock %}
+{% block pageheading %} {{author}} {% endblock %}
+{% block subheading %} {{author.get_full_name}} {% endblock %}
 {% block image %}{%static '/blog/assets/img/home-bg.jpg' %}{% endblock%}
 {% block main %}
 <!-- Main Content-->
 <div class="container px-4 px-lg-5">
   <div class="row gx-4 gx-lg-5 justify-content-center">
     <div class="col-md-10 col-lg-8 col-xl-7">
-      {% for blog in queryset%}
+      {% for article in articles%}
         <!-- Post preview-->
         <div class="post-preview">
-          <a href="{% url 'blog:post' blog.slug %}">
+          <a href="{% url 'blog:post' article.slug %}">
             <h2 class="post-title">
-              {{ blog.title }}
+              {{ article.title }}
             </h2>
             <h3 class="post-subtitle">
-              {{ blog.description | truncatewords:30 }}
+              {{ article.description | truncatewords:30 }}
             </h3>
           </a>
           <div>
-            {% for cat in blog.category.all %}
+            {% for cat in article.category.all %}
               <a href="#">#{{cat.title}} </a>
             {% endfor %}
           </div>
 
           <p class="post-meta">
             نوشته شده توسط
-            <a href="{% url 'blog:author_article_list' blog.author.get_username %}">{{blog.author.get_full_name}}</a>
-              در {{blog.jpublish}}
+            <a href="#!">{{article.author.get_full_name}}</a>
+              در {{article.jpublish}}
           </p>
         </div>
         <!-- Divider-->
