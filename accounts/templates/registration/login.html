@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Login V4</title>
+    <title>وبلاگ|ورود به سایت</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--===============================================================================================-->
@@ -59,13 +59,15 @@
     <!--===============================================================================================-->
   </head>
   <body>
+    {% include 'non_field_errors.html' %}
     <div class="limiter">
       <div
         class="container-login100"
         style="background-image: url('images/bg-01.jpg')"
       >
+      
         <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-          <form class="login100-form validate-form">
+          <form class="login100-form validate-form" method="post">{% csrf_token %}
             <span class="login100-form-title p-b-49 myfont"> ورود به سایت </span>
 
             <div
@@ -74,7 +76,14 @@
             >
               <span class="label-input100 myfont">نام‌کاربری</span>
               {{form.username|add_class:"input100"}}
-              <span class="focus-input100" data-symbol="&#xf206;"></span>
+                {% if form.username.errors %}
+                <div class="error">
+                    {% for err in form.username.errors %}
+                        <p class="error"> {{ err }}</p>
+                    {% endfor %}
+                </div>
+              {% endif %}
+			        <span class="focus-input100" data-symbol="&#xf206;"></span>
             </div>
 
             <div
@@ -83,7 +92,14 @@
             >
               <span class="label-input100 myfont">گذرواژه</span>
               {{form.password|add_class:"input100"}}
-              <span class="focus-input100" data-symbol="&#xf190;"></span>
+              {% if form.password.errors %}
+              <div class="error">
+                  {% for err in form.password.errors %}
+                      <p class="error"> {{ err }}</p>
+                  {% endfor %}
+              </div>
+            {% endif %}
+			        <span class="focus-input100" data-symbol="&#xf190;"></span>
             </div>
 
             <div class="text-right p-t-8 p-b-31">

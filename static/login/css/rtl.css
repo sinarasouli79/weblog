@@ -5,7 +5,13 @@ body {
   font-family: Sahel !important;
 }
 
-
 .myfont {
-    font-family: Sahel !important;
+  font-family: Sahel !important;
+}
+
+.error {
+  color: red !important;
+  background-color: rgb(246, 191, 191) !important;
+  font-size: 1.5rem;
+  padding:5px;
 }
