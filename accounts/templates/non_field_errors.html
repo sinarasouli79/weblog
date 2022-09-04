@@ -1,0 +1,14 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'login/css/rtl.css' %}"/>
+</head>
+
+<body>
+    {% if form.non_field_errors %}
+        <div class="error">
+            {% for err in form.non_field_errors %}
+                <p class="error"> {{ err }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+</body>

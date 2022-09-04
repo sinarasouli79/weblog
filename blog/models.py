@@ -59,6 +59,8 @@ class Article(models.Model):
         return jalali_converter(self.update)
     jupdate.short_description = 'تاریخ بروزرسانی'
 
-    # def get_category(self, *obj):
-    #     # return '،'.join([cat for cat in obj.category.all()])
-    #     return 'categories'
+    def get_category(self):
+        return '، '.join([category.title for category in self.category.all()])
+
+    get_category.short_description = 'دسته‌بندی'
+

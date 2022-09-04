@@ -23,11 +23,6 @@ class ArticleAdmin(admin.ModelAdmin):
     ordering = ['status', '-publish']
 
 
-    def get_category(self, obj):
-        return '، '.join([category.title for category in obj.category.all()])
-
-    get_category.short_description = 'دسته‌بندی'
-
 
     # return 'categories'
 admin.site.register(Article, ArticleAdmin)
