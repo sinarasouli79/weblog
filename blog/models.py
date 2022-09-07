@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from extensions.utils import jalali_converter
 from django.contrib.auth.models import User
+from django.urls import reverse
 # Create your models here.
 
 
@@ -39,7 +40,9 @@ class Article(models.Model):
     status = models.CharField(
         max_length=1, choices=STATUS_CHOICES, verbose_name='وضعیت')
 
-    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name='نویسنده', related_name='articles')
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL,
+                               verbose_name='نویسنده', related_name='articles')
+
     class Meta:
         verbose_name = 'مقاله'
         verbose_name_plural = 'مقاله‌ها'
@@ -61,6 +64,7 @@ class Article(models.Model):
 
     def get_category(self):
         return '، '.join([category.title for category in self.category.all()])
-
     get_category.short_description = 'دسته‌بندی'
 
+    def get_absolute_url(self):
+        return reverse('blog:post', kwargs={'slug': self.slug})
