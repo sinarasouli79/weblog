@@ -1,15 +1,14 @@
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
 from blog.models import Article
 # Create your views here.
 
-# use listview for representing
 
+class Home(LoginRequiredMixin, ListView):
+    template_name = 'home.html'
 
-@login_required
-def home(request):
-    articles = Article.objects.all()
-    context = {
-        'object_list': articles
-    }
-    return render(request, 'home.html', context)
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return Article.objects.all()
+        else:
+            return Article.objects.filter(author=self.request.user)
