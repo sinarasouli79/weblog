@@ -26,7 +26,7 @@
 
           <p class="post-meta">
             نوشته شده توسط
-            <a href="{% url 'blog:author_article_list' blog.author.get_username %}">{{blog.author.get_full_name}}</a>
+            <a href="{{ blog.get_absolute_url }}">{{blog.author.get_full_name}}</a>
               در {{blog.jpublish}}
           </p>
         </div>
