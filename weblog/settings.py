@@ -40,12 +40,17 @@ INSTALLED_APPS = [
 
     # third party
     'widget_tweaks',
+    'crispy_forms',
+    'crispy_bootstrap5',
     # own
     'blog.apps.BlogConfig',
     'extensions',
     'account',
 ]
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

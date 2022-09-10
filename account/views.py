@@ -17,6 +17,6 @@ class Home(LoginRequiredMixin, ListView):
 class CreateArticle(CreateView):
     model = Article
     fields = ['title', 'slug', 'category',
-              'description', 'thumbnail', 'publish', 'status']
+              'description', 'thumbnail', 'publish', 'status', 'author']
 
     template_name = 'create_article.html'
