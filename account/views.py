@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, CreateView
 from blog.models import Article
+from .mixins import FormFieldsMixin, FormValidMixin
 # Create your views here.
 
 
@@ -14,9 +15,6 @@ class Home(LoginRequiredMixin, ListView):
             return Article.objects.filter(author=self.request.user)
 
 
-class CreateArticle(CreateView):
+class CreateArticle(LoginRequiredMixin, FormFieldsMixin, FormValidMixin, CreateView):
     model = Article
-    fields = ['title', 'slug', 'category',
-              'description', 'thumbnail', 'publish', 'status', 'author']
-
     template_name = 'create_article.html'
