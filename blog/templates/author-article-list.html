@@ -15,7 +15,7 @@
               {{ article.title }}
             </h2>
             <h3 class="post-subtitle">
-              {{ article.description | truncatewords:30 }}
+              {{ article.description | truncatewords:30| striptags | cut:'&nbsp;' }}
             </h3>
           </a>
           <div>
