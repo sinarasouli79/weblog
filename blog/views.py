@@ -30,7 +30,7 @@ def contact(request):
 def author_article_list(request, username):
     # author = User.objects.get(username=username)
     author = get_object_or_404(User, username=username)
-    articles = author.articles.all()
+    articles = author.articles.filter(status='P')
     context = {'author': author,
                'articles': articles}
     return render(request, 'author-article-list.html', context)
