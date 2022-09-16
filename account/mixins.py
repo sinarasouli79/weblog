@@ -1,17 +1,19 @@
-# from django.http import Http404
+from django.http import Http404
 
 
 class FormFieldsMixin:
 
     def dispatch(self, request, *args, **kwargs):
-        self.fields = ['title', 'slug', 'category',
-                       'description', 'thumbnail', 'publish']
         if request.user.is_superuser:
-            self.fields += ['status', 'author']
+            self.fields = ['title', 'slug', 'category',
+                           'description', 'thumbnail', 'publish', 'status', 'author']
 
-        # else:
-        #     raise Http404
+        elif request.user.is_author:
+            self.fields = ['title', 'slug', 'category',
+                           'description', 'thumbnail', 'publish',]
 
+        else:
+            raise Http404('نمایش غیرمجاز')
         return super().dispatch(request, *args, **kwargs)
 
 
