@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Article, Category
-from django.contrib.auth.models import User
+from account.models import User
 # Create your views here.
 
 
@@ -33,4 +33,4 @@ def author_article_list(request, username):
     articles = author.articles.all()
     context = {'author': author,
                'articles': articles}
-    return render(request, 'author-article-list.html',context)
+    return render(request, 'author-article-list.html', context)
