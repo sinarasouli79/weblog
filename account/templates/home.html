@@ -37,7 +37,15 @@
                   <tbody>
                     {% for article in object_list %}
                       <tr>
-                        <td> {{article.title}}</td>
+                        <td>
+                          {% if article.status == 'D' or user.is_superuser %} 
+                          <a href="{% url 'account:update-article' article.id %}">
+                            {{article.title}}
+                          {% else %}
+                            {{article.title}}
+                          {%endif%}
+                          </a>
+                        </td>
                         <td> <img src="{{article.thumbnail.url}}" width="120"></td>
                         <td> {{article.get_category}}</td>
                         <td> {{article.author.get_full_name}}</td>

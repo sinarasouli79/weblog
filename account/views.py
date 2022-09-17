@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView
 from blog.models import Article
-from .mixins import FormFieldsMixin, FormValidMixin
+from .mixins import FormFieldsMixin, FormValidMixin, UpdateAccessMixin
 # Create your views here.
 
 
@@ -16,5 +16,9 @@ class Home(LoginRequiredMixin, ListView):
 
 
 class CreateArticle(LoginRequiredMixin, FormFieldsMixin, FormValidMixin, CreateView):
+    model = Article
+    template_name = 'create_article.html'
+
+class UpdateArticle(UpdateAccessMixin, FormFieldsMixin, FormValidMixin, UpdateView):
     model = Article
     template_name = 'create_article.html'

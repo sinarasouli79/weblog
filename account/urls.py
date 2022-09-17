@@ -5,7 +5,7 @@
 
 from django.contrib.auth import views
 from django.urls import path
-from .views import Home, CreateArticle
+from .views import Home, CreateArticle, UpdateArticle
 app_name = 'account'
 urlpatterns = [
     path("login/", views.LoginView.as_view(), name="login"),
@@ -38,5 +38,6 @@ urlpatterns = [
 
 urlpatterns += [
     path('home/', Home.as_view(), name='home'),
-    path('create/', CreateArticle.as_view(), name='create-article')
+    path('create/', CreateArticle.as_view(), name='create-article'),
+    path('update/<int:pk>/', UpdateArticle.as_view(), name='update-article'),
 ]
