@@ -58,6 +58,13 @@
                           {% else %}
                           <span class="badge badge-secondary">بایگانی</span>
                           {% endif%}
+                          {% if user.is_superuser %}
+                          <span class="badge badge-danger">
+                            <a class="text-white" href="{% url 'account:delete-article' article.id %}">
+                              حذف مقاله
+                            </a>
+                          </span>
+                          {% endif %}
                         </td>
                         
                       </tr>
