@@ -35,7 +35,15 @@
                     {% endif %}
                 </div>
                 <button value="submit"class="btn btn-primary">ارسال</button>
+                {% if user.is_superuser and request.resolver_match.url_name == 'update-article' %}
+                <a class="btn btn-danger text-light"
+                    href="{% url 'account:delete-article' request.resolver_match.kwargs.pk %}">
+                    حذف 
+                </a>
+                {% endif %}
             </form>
         </div>
     </div>
+       
+   
 {% endblock %}

@@ -1,4 +1,5 @@
   {% load static %}
+  {% load basetags %}
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -35,16 +36,10 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{% url 'account:home'%}" class="nav-link active">
-                  <i class="fa fa-list nav-icon"></i>
-                  <p>لیست مقالات</p>
-                </a>
-              </li>
+                {%link request 'home' 'لیست مقالات'%}
+              </li> 
               <li class="nav-item">
-                <a href="{% url 'account:create-article' %}" class="nav-link">
-                  <i class="fa fa-edit nav-icon"></i>
-                  <p>مقاله جدید</p>
-                </a>
+                {%link request 'create-article' 'افزودن مقاله'%}
               </li>
             </ul>
           </li>
