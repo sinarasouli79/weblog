@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Article, Category
 from account.models import User
+from django.views.generic import DetailView
+from account.mixins import AuthorAccessMixin
 # Create your views here.
 
 
@@ -34,3 +36,10 @@ def author_article_list(request, username):
     context = {'author': author,
                'articles': articles}
     return render(request, 'author-article-list.html', context)
+
+
+class ArticlePreview(AuthorAccessMixin, DetailView):
+    template_name = 'post.html'
+    def get_object(self):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Article, pk=pk)

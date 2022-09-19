@@ -58,6 +58,7 @@
                       <a class="badge badge-primary" href="{% url 'blog:post' article.slug %}" target="_blank">نمایش در سایت</a>
                     {% else %}
                     <span class="badge badge-secondary">بایگانی</span>
+                    <a href="{%url 'blog:article_preview' article.pk %}" class="badge badge-dark">پیش‌نمایش</a>
                     {% endif%}
                     {% if user.is_superuser %}
                     <span class="badge badge-danger">
@@ -66,6 +67,7 @@
                       </a>
                     </span>
                     {% endif %}
+
                   </td>
                   
                 </tr>

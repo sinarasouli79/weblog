@@ -32,7 +32,7 @@ class FormValidMixin:
         return super().form_valid(form)
 
 
-class UpdateAccessMixin:
+class AuthorAccessMixin:
 
     def dispatch(self, request, pk, *args, **kwargs):
         article_update = get_object_or_404(Article, pk=pk)
@@ -40,7 +40,7 @@ class UpdateAccessMixin:
                 or request.user.is_superuser:
             return super().dispatch(request, *args, **kwargs)
         else:
-            raise Http404()
+            raise Http404('مجاز به نمایش نیست')
 
 
 class SuperUserAccessMixin:
