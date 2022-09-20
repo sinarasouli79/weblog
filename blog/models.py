@@ -23,9 +23,15 @@ class Category(models.Model):
 
 
 class Article(models.Model):
+    PENDDING = 'P'
+    DRAFT = 'D'
+    INSTIGATION = 'I'
+    BACK = 'B'
     STATUS_CHOICES = [
-        ('P', 'منتشرشده'),
-        ('D', 'بایگانی'),
+        (PENDDING, 'منتشرشده'),
+        (DRAFT, 'پیش‌نویس'),
+        (INSTIGATION, 'در حال برسی'),
+        (BACK, 'برگشت داده شده'),
     ]
     title = models.CharField(max_length=255, verbose_name='عنوان')
     slug = models.SlugField(max_length=100, unique=True, verbose_name='آدرس')

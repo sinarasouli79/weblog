@@ -36,7 +36,7 @@ class AuthorAccessMixin:
 
     def dispatch(self, request, pk, *args, **kwargs):
         article_update = get_object_or_404(Article, pk=pk)
-        if request.user == article_update.author and article_update.status == 'D'\
+        if request.user == article_update.author and article_update.status in ['D', 'B']\
                 or request.user.is_superuser:
             return super().dispatch(request, *args, **kwargs)
         else:
