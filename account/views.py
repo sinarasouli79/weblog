@@ -5,6 +5,7 @@ from .models import User
 from .mixins import (FormFieldsMixin, FormValidMixin,
                      AuthorAccessMixin, SuperUserAccessMixin)
 from django.urls import reverse_lazy
+from .froms import ProfileForm
 # Create your views here.
 
 
@@ -36,7 +37,7 @@ class ArticleDelete(SuperUserAccessMixin, DeleteView):
 
 class Profile(UpdateView):
     model = User
-    fields = ['username', 'first_name', 'last_name', 'email', 'is_author']
+    form_class = ProfileForm
     template_name = 'registration/profile.html'
 
     success_url = reverse_lazy('account:profile')
