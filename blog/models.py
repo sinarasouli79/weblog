@@ -46,6 +46,7 @@ class Article(models.Model):
     status = models.CharField(
         max_length=1, choices=STATUS_CHOICES, verbose_name='وضعیت')
 
+    is_special = models.BooleanField(default=False, verbose_name='مقاله ویژه')
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL,
                                verbose_name='نویسنده', related_name='articles')
 

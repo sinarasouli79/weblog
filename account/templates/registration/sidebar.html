@@ -36,21 +36,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                {%link request 'home' 'لیست مقالات'%}
+                {%link request 'home' 'لیست مقالات' 'fa-list' %}
               </li> 
               <li class="nav-item">
-                {%link request 'create-article' 'افزودن مقاله'%}
+                {%link request 'create-article' 'افزودن مقاله' 'fa-edit' %}
               </li>
             </ul>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                پروفایل
-                <span class="right badge badge-danger">جدید</span>
-              </p>
-            </a>
+            {% link request 'profile' 'پروفایل' 'fa-th'%}
           </li>
         </ul>
       </nav>

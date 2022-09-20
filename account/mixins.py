@@ -8,11 +8,11 @@ class FormFieldsMixin:
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_superuser:
             self.fields = ['title', 'slug', 'category',
-                           'description', 'thumbnail', 'publish', 'status', 'author']
+                           'description', 'is_special', 'thumbnail', 'publish', 'status', 'author']
 
         elif request.user.is_author:
             self.fields = ['title', 'slug', 'category',
-                           'description', 'thumbnail', 'publish', ]
+                           'description', 'is_special', 'thumbnail', 'publish', ]
 
         else:
             raise Http404('نمایش غیرمجاز')

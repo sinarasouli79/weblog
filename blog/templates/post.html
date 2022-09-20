@@ -11,7 +11,15 @@
         <!-- <h2 class="section-heading">The Final Frontier</h2> -->
         <!-- <blockquote class="blockquote">
         </blockquote> -->
-        {{object.description|linebreaks|safe}}
+        {% if object.is_special %}
+          {% if user.is_special or user == object.author or user.is_superuser %}  
+          {{object.description|linebreaks|safe}}
+          {% else %}
+            <h4>این یک مقاله ویژه هست برای مشاهده باید <a href="#">اشتراک ویژه</a> تهیه کنید.</h4>
+          {% endif %}
+        {% else %}        
+          {{object.description|linebreaks|safe}}
+        {% endif %}
       </div>
     </div>
   </div>
