@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% load static %} {% block title %}پست{% endblock %}
-{% block pageheading %} {{ object.title }} {% endblock %} {% block subheading %}
+{% block pageheading %} {{ object.title }} {% if article.is_special %} <span class="badge badge-danger">ویژه</span> {% endif%} {% endblock %} {% block subheading %}
 {{ object.description | truncatewords:20 }} {% endblock %} 
 {% block image %}{{object.thumbnail.url}} {% endblock%}
 {% block main %}

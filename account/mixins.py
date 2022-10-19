@@ -1,5 +1,6 @@
 from django.http import Http404
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
+
 from blog.models import Article
 
 
@@ -42,6 +43,12 @@ class AuthorAccessMixin:
         else:
             raise Http404('مجاز به نمایش نیست')
 
+class AuthorsAccessMixin:
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_superuser or request.user.is_author:
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            return redirect('account:profile')
 
 class SuperUserAccessMixin:
     def dispatch(self, request, *args, **kwargs):
@@ -49,3 +56,4 @@ class SuperUserAccessMixin:
             return super().dispatch(request, *args, **kwargs)
         else:
             raise Http404()
+

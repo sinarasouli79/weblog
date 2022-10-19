@@ -13,6 +13,11 @@
           <a href="{% url 'blog:post' blog.slug %}">
             <h2 class="post-title">
               {{ blog.title }}
+              
+              {% if article.is_special %}
+              <span class="badge badge-danger text-danger">ویژه</span>
+              {% endif %}
+              
             </h2>
             <h3 class="post-subtitle">
               {{ blog.description | truncatewords:30 | striptags | cut:'&nbsp;' }}

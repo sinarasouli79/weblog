@@ -7,13 +7,13 @@ from blog.models import Article
 
 from .forms import ProfileForm
 from .mixins import (AuthorAccessMixin, FormFieldsMixin, FormValidMixin,
-                     SuperUserAccessMixin)
+                     SuperUserAccessMixin, AuthorsAccessMixin)
 from .models import User
 
 # Create your views here.
 
 
-class Home(LoginRequiredMixin, ListView):
+class Home(LoginRequiredMixin, AuthorsAccessMixin, ListView):
     template_name = 'home.html'
 
     def get_queryset(self):
@@ -23,7 +23,7 @@ class Home(LoginRequiredMixin, ListView):
             return Article.objects.filter(author=self.request.user)
 
 
-class CreateArticle(LoginRequiredMixin, FormFieldsMixin, FormValidMixin, CreateView):
+class CreateArticle(LoginRequiredMixin, AuthorsAccessMixin, FormFieldsMixin, FormValidMixin, CreateView):
     model = Article
     template_name = 'create_article.html'
 
