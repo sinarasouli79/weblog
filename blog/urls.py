@@ -1,5 +1,8 @@
 from django.urls import path
-from .views import article_list, about, post, contact, author_article_list, ArticlePreview
+
+from .views import (ArticlePreview, about, article_list, author_article_list,
+                    contact, post)
+
 app_name = 'blog'
 urlpatterns = [
     path('', article_list, name='article_list'),

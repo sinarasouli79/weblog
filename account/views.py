@@ -1,11 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import (ListView, CreateView, UpdateView, DeleteView)
-from blog.models import Article
-from .models import User
-from .mixins import (FormFieldsMixin, FormValidMixin,
-                     AuthorAccessMixin, SuperUserAccessMixin)
+from django.contrib.auth.views import LoginView as BaseLoginView
 from django.urls import reverse_lazy
-from .froms import ProfileForm
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+
+from blog.models import Article
+
+from .forms import ProfileForm
+from .mixins import (AuthorAccessMixin, FormFieldsMixin, FormValidMixin,
+                     SuperUserAccessMixin)
+from .models import User
+
 # Create your views here.
 
 
@@ -35,7 +39,7 @@ class ArticleDelete(SuperUserAccessMixin, DeleteView):
     template_name = 'article_confirm_delete.html'
 
 
-class Profile(UpdateView):
+class Profile(LoginRequiredMixin, UpdateView):
     model = User
     form_class = ProfileForm
     template_name = 'registration/profile.html'
@@ -44,3 +48,18 @@ class Profile(UpdateView):
 
     def get_object(self):
         return User.objects.get(pk=self.request.user.pk)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+class LoginView(BaseLoginView):
+
+    def get_success_url(self):
+        user = self.request.user
+        if user.is_superuser or user.is_author:
+            return reverse_lazy('account:home')
+
+        else:
+            return reverse_lazy('account:profile')
