@@ -6,8 +6,8 @@ from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from blog.models import Article
 
 from .forms import ProfileForm
-from .mixins import (AuthorAccessMixin, FormFieldsMixin, FormValidMixin,
-                     SuperUserAccessMixin, AuthorsAccessMixin)
+from .mixins import (AuthorAccessMixin, AuthorsAccessMixin, FormFieldsMixin,
+                     FormValidMixin, SuperUserAccessMixin)
 from .models import User
 
 # Create your views here.

@@ -7,28 +7,22 @@ from blog.models import Article
 class FormFieldsMixin:
 
     def dispatch(self, request, *args, **kwargs):
+        self.fields = ['title', 'slug', 'category',
+                       'description', 'is_special', 'thumbnail', 'publish', 'status']
         if request.user.is_superuser:
-            self.fields = ['title', 'slug', 'category',
-                           'description', 'is_special', 'thumbnail', 'publish', 'status', 'author']
-
-        elif request.user.is_author:
-            self.fields = ['title', 'slug', 'category',
-                           'description', 'is_special', 'thumbnail', 'publish', ]
-
-        else:
-            raise Http404('نمایش غیرمجاز')
+            self.fields.append('author')
         return super().dispatch(request, *args, **kwargs)
 
 
 class FormValidMixin:
     def form_valid(self, form):
-        if self.request.user.is_superuser:
-            form.save()
-        else:
+        if not self.request.user.is_superuser:
             self.obj = form.save(commit=False)
             self.obj.author = self.request.user
-            self.obj.status = 'D'
-            form.save()
+            if self.obj.status not in ['D', 'I']:
+                self.obj.status = 'D'
+       
+        form.save()
 
         return super().form_valid(form)
 
@@ -43,6 +37,7 @@ class AuthorAccessMixin:
         else:
             raise Http404('مجاز به نمایش نیست')
 
+
 class AuthorsAccessMixin:
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_superuser or request.user.is_author:
@@ -50,10 +45,10 @@ class AuthorsAccessMixin:
         else:
             return redirect('account:profile')
 
+
 class SuperUserAccessMixin:
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_superuser:
             return super().dispatch(request, *args, **kwargs)
         else:
             raise Http404()
-
