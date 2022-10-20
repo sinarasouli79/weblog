@@ -1,5 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView as BaseLoginView
+from django.contrib.auth.views import \
+    PasswordChangeView as BasePasswordChangeView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
@@ -54,6 +56,7 @@ class Profile(LoginRequiredMixin, UpdateView):
         kwargs['user'] = self.request.user
         return kwargs
 
+
 class LoginView(BaseLoginView):
 
     def get_success_url(self):
@@ -63,3 +66,7 @@ class LoginView(BaseLoginView):
 
         else:
             return reverse_lazy('account:profile')
+
+
+class PasswordChangeView(BasePasswordChangeView):
+    success_url = reverse_lazy('account:password_change_done')

@@ -21,10 +21,13 @@
                     <div class="col-6">
                         {{form.last_name|as_crispy_field}}
                     </div>
-                    <div class="col-6 mx-3">
+                    <div class="col-6">
+                        <p>برای تغییر گذرواژه <a href="{% url 'account:password_change'%}">کلیک</a> کنید.</p>
+                    </div>
+                    <div class="col-6 ">
                         {{form.is_author|as_crispy_field}}
                     </div>
-                    </div>
+                
                 </div>
             
                 <button value="submit"class="btn btn-primary col-1 mx-auto my-4">ویرایش اطلاعات</button>
