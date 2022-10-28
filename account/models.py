@@ -7,3 +7,4 @@ class User(AbstractUser):
     is_author = models.BooleanField(
         default=False, verbose_name='وضعیت نویسندگی')
     
+    email = models.EmailField(unique=True, verbose_name='آدرس ایمیل')

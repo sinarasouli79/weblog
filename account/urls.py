@@ -3,44 +3,44 @@
 # It is also provided as a convenience to those who want to deploy these URLs
 # elsewhere.
 
-from django.contrib.auth import views
-from django.urls import path
-
+from django.urls import path, reverse_lazy
+from django.contrib.auth.views import LogoutView
 from .views import (ArticleDelete, CreateArticle, Home, LoginView,
-                    PasswordChangeView, Profile, UpdateArticle)
+                    PasswordChangeDoneView, PasswordChangeView,
+                    PasswordResetCompleteView, PasswordResetConfirmView,
+                    PasswordResetDoneView, PasswordResetView, Profile,
+                    UpdateArticle)
 
 app_name = 'account'
 urlpatterns = [
     path("login/", LoginView.as_view(), name="login"),
-    path("logout/", views.LogoutView.as_view(), name="logout"),
+    path("logout/", LogoutView.as_view(), name="logout"),
     path(
         "password_change/",
-        PasswordChangeView.as_view(
-            template_name='registration/account_password_change_form.html'),
+        PasswordChangeView.as_view(),
         name="password_change"
     ),
     path(
         "password_change/done/",
-        views.PasswordChangeDoneView.as_view(
-            template_name='registration/account_password_change_done.html'),
+        PasswordChangeDoneView.as_view(),
         name="password_change_done",
     ),
-    # path("password_reset/", views.PasswordResetView.as_view(), name="password_reset"),
-    # path(
-    #     "password_reset/done/",
-    #     views.PasswordResetDoneView.as_view(),
-    #     name="password_reset_done",
-    # ),
-    # path(
-    #     "reset/<uidb64>/<token>/",
-    #     views.PasswordResetConfirmView.as_view(),
-    #     name="password_reset_confirm",
-    # ),
-    # path(
-    #     "reset/done/",
-    #     views.PasswordResetCompleteView.as_view(),
-    #     name="password_reset_complete",
-    # ),
+    path("password_reset/", PasswordResetView.as_view(), name="password_reset"),
+    path(
+        "password_reset/done/",
+        PasswordResetDoneView.as_view(),
+        name="password_reset_done",
+    ),
+    path(
+        "reset/<uidb64>/<token>/",
+        PasswordResetConfirmView.as_view(),
+        name="password_reset_confirm",
+    ),
+    path(
+        "reset/done/",
+        PasswordResetCompleteView.as_view(),
+        name="password_reset_complete",
+    ),
 ]
 
 urlpatterns += [

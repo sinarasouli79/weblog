@@ -1,7 +1,5 @@
+from django.contrib.auth import views
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView as BaseLoginView
-from django.contrib.auth.views import \
-    PasswordChangeView as BasePasswordChangeView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
@@ -57,7 +55,7 @@ class Profile(LoginRequiredMixin, UpdateView):
         return kwargs
 
 
-class LoginView(BaseLoginView):
+class LoginView(views.LoginView):
 
     def get_success_url(self):
         user = self.request.user
@@ -68,5 +66,31 @@ class LoginView(BaseLoginView):
             return reverse_lazy('account:profile')
 
 
-class PasswordChangeView(BasePasswordChangeView):
+class PasswordChangeView(views.PasswordChangeView):
     success_url = reverse_lazy('account:password_change_done')
+    template_name='registration/account_password_change_form.html'
+
+class PasswordResetView(views.PasswordResetView):
+
+    email_template_name = "registration/password_reset_email1.html"
+    success_url = reverse_lazy("account:password_reset_done")
+    template_name = "registration/password_reset_form1.html"
+
+
+class PasswordResetDoneView(views.PasswordResetDoneView):
+    template_name = "registration/password_reset_done1.html"
+
+
+class PasswordResetConfirmView(views.PasswordResetConfirmView):
+    template_name="registration/password_reset_confirm1.html"
+    success_url= reverse_lazy('account:password_reset_complete')
+
+
+class PasswordChangeDoneView(views.PasswordChangeDoneView):
+    template_name='registration/account_password_change_done.html'
+
+
+class PasswordResetCompleteView(views.PasswordResetCompleteView):
+    template_name = "registration/password_reset_complete1.html"
+
+    
